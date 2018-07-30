@@ -4,22 +4,23 @@ declare const global: any
 
 const conf: Config = {
   specs: ['./specs/**/*.spec.ts'],
-
   framework: 'mocha',
+  logLevel: 'WARN',
+
   mochaOpts: {
-    timeout: 25000
+    timeout: 25000,
+    reporter: 'mocha-allure-reporter'
   },
+
   multiCapabilities: [{
     browserName: 'chrome',
-    maxInstances: 5,
-    shardTestFiles: true
+    // maxInstances: 5,
+    // shardTestFiles: true
   }],
 
   allScriptsTimeout: 30 * 1000,
-
   // restartBrowserBetweenTests: true,
   SELENIUM_PROMISE_MANAGER: false,
-
   onPrepare: async () => {
     browser.waitForAngularEnabled(false)
   },

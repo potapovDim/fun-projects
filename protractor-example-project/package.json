@@ -1,0 +1,30 @@
+{
+  "name": "ebuilder-automation",
+  "version": "0.0.1",
+  "scripts": {
+    "postinstall": "webdriver-manager update",
+    "start:driver": "webdriver-manager start",
+    "lint": "tslint -e './node_modules/' -p ./tsconfig.json",
+    "pretest": "npm run lint",
+    "test:local": "protractor ./protractor.conf.js",
+    "test": "bash ./start.sh",
+    "tsc": "tsc",
+    "tscw": "tsc -w",
+    "validate": "npm ls"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "2.2.41",
+    "@types/node": "8.0.24",
+    "awb": "^0.4.84",
+    "chai": "4.1.1",
+    "mocha": "^5.2.0",
+    "protractor": "^5.3.0",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "typescript": "2.5.1"
+  }
+}

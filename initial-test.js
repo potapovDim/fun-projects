@@ -19,4 +19,6 @@ const goTo = async () => {
   const resp = await fetcher(`${baseUrl}/session/${session}/url`, 'POST', {url: 'https://facebook.com'})
   console.log(resp)
 }
+
 goTo()
+

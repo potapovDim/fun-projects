@@ -6,7 +6,7 @@ const conf: Config = {
   specs: ['./specs/**/*.spec.ts'],
   framework: 'mocha',
 
-  // logLevel: 'WARN',
+  logLevel: 'ERROR',
 
   mochaOpts: {
     timeout: 25000,

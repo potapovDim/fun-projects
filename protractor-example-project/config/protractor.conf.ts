@@ -5,7 +5,8 @@ declare const global: any
 const conf: Config = {
   specs: ['./specs/**/*.spec.ts'],
   framework: 'mocha',
-  logLevel: 'WARN',
+
+  // logLevel: 'WARN',
 
   mochaOpts: {
     timeout: 25000,
@@ -14,10 +15,10 @@ const conf: Config = {
 
   multiCapabilities: [{
     browserName: 'chrome',
-    // maxInstances: 5,
-    // shardTestFiles: true
+    maxInstances: 5,
+    shardTestFiles: true
   }],
-
+  // restartBrowserBetweenTests: true,
   allScriptsTimeout: 30 * 1000,
   // restartBrowserBetweenTests: true,
   SELENIUM_PROMISE_MANAGER: false,

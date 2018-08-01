@@ -11,12 +11,11 @@ function doPromiseStuff(arr) {
   })
 }
 
-
 const doStuff = async () => {
   const a = await arr.reduce((resolver) => {
     return resolver.then(resolvedArr => doPromiseStuff(resolvedArr).then(plussedArr => plussedArr))
   }, Promise.resolve(toPromiseArr))
   console.log(a)
 }
-doStuff()
 
+doStuff()

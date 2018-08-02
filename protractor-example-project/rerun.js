@@ -2,11 +2,14 @@ const path = require('path')
 const fs = require('fs')
 const {exec} = require('child_process')
 
-
+const sleep = (time) => new Promise(res => setTimeout(res, time))
 
 const maxSession = 10
-
 let currentSessionCount = 0
+
+const rerunCount = process.env.RERUN_COUNT && Number(process.env.RERUN_COUNT) || 2
+const rerunArr = new Array(rerunCount).join('_').split('_')
+
 
 const walkSync = function(dir, filelist = []) {
   const files = fs.readdirSync(dir)
@@ -43,6 +46,7 @@ const runPromise = (cmd) => new Promise((res) => {
 async function exeRun(runArr, failArr = []) {
 
   runArr = runArr || walkSync(specsDir).map(getRunCommand)
+
   let currentSubRun = 0
   async function performRun(runSuits, failedRun) {
     let asserter = null
@@ -69,21 +73,22 @@ async function exeRun(runArr, failArr = []) {
       const runMap = runSuits.splice(0, maxSession - currentSessionCount).map(run => runPromise(run))
 
       currentSessionCount += runMap.length
+
       await Promise.all(runMap).then((cmds) => {
         failedRun.push(...cmds.filter(cm => !!cm))
         currentSessionCount -= runMap.length
       }).catch(e => console.error(e.toString()))
+
+      if(runSuits.length) {await sleep(3000)}
 
     } while(runSuits.length || currentSubRun)
     clearInterval(asserter)
     return failedRun
   }
 
-  const failedTests =
-    await performRun(runs, [])
-      .then((failed) => performRun(failed, []))
-      .then((failed) => performRun(failed, []))
-      .then(failed => failed)
+  const failedTests = await arr.reduce((resolver) => {
+    return resolver.then(resolvedArr => performRun(resolvedArr, []).then(failedArr => failedArr))
+  }, Promise.resolve(runArr))
 
   console.log(failedTests.length, 'Failed test count')
   return failedTests

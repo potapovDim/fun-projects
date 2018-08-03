@@ -25,37 +25,34 @@ const walkSync = function(dir, filelist = []) {
 
 const specsDir = path.resolve(__dirname, './specs')
 
-const getRunCommand = (file) => `
-  ${path.resolve(__dirname, './node_modules/.bin/protractor')}
-  ${path.resolve(__dirname, './protractor.conf.js')}
-  --specs ${file}
-`
+const getRunCommand = (file) => ` ${path.resolve(__dirname, './node_modules/.bin/protractor')} ${path.resolve(__dirname, './protractor.conf.js')} --specs ${file}`
 
 const runPromise = (cmd) => new Promise((res) => {
   const now = +Date.now(); const longestTest = 450000
   const proc = exec(cmd)
   let fullStack = ''
   const watcher = setInterval(() => {if(+Date.now() - now > longestTest) {clearInterval(watcher); proc.kill(); res(cmd)} }, 15000)
+
   proc.on('exit', () => {clearInterval(watcher)})
   proc.stdout.on('data', (data) => {fullStack += data.toString()})
 
-  proc.on('close', (code) => {if(code !== 0 && !fullStack.includes('ASSERTION ERROR')) {res(cmd)} res(null)})
+  proc.on('close', (code) => {if(code !== 0) {res(cmd)} res(null)})
 })
 
 
 async function exeRun(runArr, failArr = []) {
-
   runArr = runArr || walkSync(specsDir).map(getRunCommand)
+
+  console.log(runArr)
 
   let currentSubRun = 0
   async function performRun(runSuits, failedRun) {
+
     let asserter = null
     function tryRerun(runsArr, pushArr) {
-
+      console.log('here !!!!!!!!!!!!!!')
       const upperRun = async () => {
-
         const runArr = runsArr.splice(0, maxSession - currentSessionCount).map(run => runPromise(run))
-
         currentSubRun += runArr.length
         currentSessionCount += currentSubRun
         await Promise.all(runArr).then((cmd) => {
@@ -64,32 +61,33 @@ async function exeRun(runArr, failArr = []) {
           currentSessionCount -= currentSubRun
         }).catch(console.error)
       }
-
       upperRun()
       asserter = setInterval(upperRun, 10000)
     }
 
     do {
       const runMap = runSuits.splice(0, maxSession - currentSessionCount).map(run => runPromise(run))
-
+      console.log('XXXXXXXXXXXXXXXX')
       currentSessionCount += runMap.length
-
+      console.log('runMap', runMap.length, runSuits.length, currentSubRun)
       await Promise.all(runMap).then((cmds) => {
         failedRun.push(...cmds.filter(cm => !!cm))
         currentSessionCount -= runMap.length
       }).catch(e => console.error(e.toString()))
 
       if(runSuits.length) {await sleep(3000)}
-
     } while(runSuits.length || currentSubRun)
+
     clearInterval(asserter)
     return failedRun
   }
 
-  const failedTests = await arr.reduce((resolver) => {
+  const failedTests = await rerunArr.reduce((resolver) => {
     return resolver.then(resolvedArr => performRun(resolvedArr, []).then(failedArr => failedArr))
   }, Promise.resolve(runArr))
 
   console.log(failedTests.length, 'Failed test count')
   return failedTests
 }
+
+exeRun()

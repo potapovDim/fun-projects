@@ -13,11 +13,11 @@ const conf: Config = {
     reporter: 'mocha-allure-reporter'
   },
 
-  multiCapabilities: [{
-    browserName: 'chrome',
-    maxInstances: 5,
-    shardTestFiles: true
-  }],
+  // multiCapabilities: [{
+  //   browserName: 'chrome',
+  //   maxInstances: 5,
+  //   shardTestFiles: true
+  // }],
   // restartBrowserBetweenTests: true,
   allScriptsTimeout: 30 * 1000,
   // restartBrowserBetweenTests: true,

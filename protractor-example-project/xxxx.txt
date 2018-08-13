@@ -1,0 +1,10 @@
+
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/1.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/2.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/3.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/4.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/5.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/6.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/7.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/8.spec.ts
+END /Users/dpot/Documents/fun-projects/protractor-example-project/node_modules/.bin/protractor ./protractor.conf.js --specs /Users/dpot/Documents/fun-projects/protractor-example-project/specs/9.spec.ts

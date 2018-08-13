@@ -1,12 +1,11 @@
 {
-  "name": "ebuilder-automation",
+  "name": "fun-project",
   "version": "0.0.1",
   "scripts": {
     "postinstall": "webdriver-manager update",
     "start:driver": "webdriver-manager start",
-    "lint": "tslint -e './node_modules/' -p ./tsconfig.json",
-    "pretest": "npm run lint",
     "test:local": "protractor ./protractor.conf.js",
+    "test:rerun": "protractor-rerun --count 5",
     "test": "bash ./start.sh",
     "tsc": "tsc",
     "tscw": "tsc -w",
@@ -26,10 +25,9 @@
     "protractor": "^5.3.0",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
-    "typescript": "2.5.1",
-    "protractor-rerun": "git+ssh://git@github.com:potapovDim/protractor-rerun.git"
+    "typescript": "2.5.1"
   },
   "dependencies": {
-    "minimist": "^1.2.0"
+    "protractor-rerun": "0.0.4"
   }
 }
